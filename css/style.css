@@ -278,7 +278,7 @@ footer .footer_social {
     top: 0;
     left: -100%;
     width: 50%;
-    height: 100vh;
+    height: 80%;
     padding: 20px 15px;
     background-color: rgba(0, 0, 0, 0.8);
     -webkit-transition: 0.6s all;
