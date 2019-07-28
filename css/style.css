@@ -163,7 +163,7 @@ nav {
   margin-top: 84px;
   min-height: 750px;
   background-color: white;
-  background-image: url(img/bg.jpg);
+  background-image: url(../img/bg.jpg);
 }
 
 .main h2 {
