@@ -161,7 +161,7 @@ nav {
 .main {
   width: 100%;
   margin-top: 84px;
-  min-height: 550px;
+  min-height: 750px;
   background-color: white;
   background-image: url(../img/bg.jpg);
 }
@@ -246,6 +246,28 @@ h1 {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.reason {
+  background: white;
+}
+
+.reason .reason_img {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.reason .list {
+  display: block;
+  margin-top: 20px;
+}
+
+.reason .list .list_li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
 }
 
 footer {
@@ -427,5 +449,26 @@ footer .footer_social {
   .xs-hidden {
     display: none;
   }
+}
+
+.main_error {
+  width: 700px;
+  height: 500px;
+}
+
+.bg_error {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-left: 200px;
+  margin-top: 200px;
 }
 /*# sourceMappingURL=style.css.map */
