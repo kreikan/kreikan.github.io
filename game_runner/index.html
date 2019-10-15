@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <meta name="viewport" content="width=device-width,user-scalable=no"/>
+ <title></title>
+</head>
+<body>
+<script type="text/javascript" src="pointjs.js"></script>
+<script type="text/javascript" src="platformer.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+var js = new PointJS('2d',1000, 550, {background : 'white'});
+var platformer = new PlatformerJS(js);
+platformer.optMode = true;
+var game = js.game;
+var tiles = js.tiles;
+var v = js.vector.v2d;
+var point  = js.vector.point;
+var log =js.system.log;
+var key = js.keyControl;
+key.initKeyControl();
+
+
+var camera = js.camera;
+
+var OOP =js.OOP;
+var speed = 1;
+dx =0;
+var DX = 4;
+dy=0;
+
+
+
+
+var a = 0;
+var b = 30;
+var flag1;
+var c = 1;
+var k = 70; //для прыжка
+var music = js.wAudio.newAudio("audio/X.mp3", 0.5);
+var music3 = js.wAudio.newAudio("audio/гейм_овер.mp3", 0.5);
+var music2 = js.wAudio.newAudio("audio/гейм.mp3", 0.5);
+var music4 = js.wAudio.newAudio("audio/не_время.mp3", 0.5);
+music1 = 0;
+
+
+game.newLoopFromConstructor('my game',function(){
+
+var map = {
+
+width: 40 ,
+height:20 ,
+level: [
+
+
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '010101010101220101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '010101010101220101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    ]
+}
+var map1 = [];
+
+OOP.forArr(map.level, function(string, y){
+OOP.forArr(string, function(el, x){
+if(el == '0'){
+map1.push(platformer.addWall(game.newRectObject ({
+x:x * map.width,
+y:y * map.height,
+w:map.width,
+h:map.height,
+fillColor: 'black'
+})))}
+
+
+if(el == '1'){
+map1.push(platformer.addWall(game.newRectObject ({
+x:x * map.width,
+y:y * map.height,
+w:map.width,
+h:map.height,
+fillColor: 'red'
+})))
+        }
+    })
+})
+
+var player_idel = game.newAnimationObject({ // право
+ animation : tiles.newImage('player.png').getAnimation(0, 65, 32, 32, 6), x: 30, y:30, w: 32, h : 32, delay :7, visible: true
+});
+
+var player_run = game.newAnimationObject({ // право
+ animation : tiles.newImage('player.png').getAnimation(0, 113, 32, 32, 8), x: 30, y:30, w: 32, h : 32, delay :4, visible: false
+});
+
+var player_turnAround = game.newAnimationObject({ // право
+ animation : tiles.newImage('player.png').getAnimation(48, 161, 32, 32, 8), x: 30, y:30, w: 32, h : 32, delay :5, visible: false
+});
+
+var player_jump = game.newAnimationObject({ // право
+ animation : tiles.newImage('player.png').getAnimation(0, 209, 32, 32, 3), x: 30, y:30, w: 32, h : 32, delay :9, visible:false
+});
+
+var player_jump2 = game.newAnimationObject({ // право
+ animation : tiles.newImage('player.png').getAnimation(70, 209, 32, 32, 1), x: 30, y:30, w: 32, h : 32, delay :9, visible:true
+});
+
+//var ground = game.newRectObject ({
+//    x:0,
+//    y:200,
+//    w:400,
+//    h:10,
+//    fillColor: 'black'
+//})
+
+
+var g = 0.5; //0.6
+var f = 0; //0.1
+platformer.addAction(player_idel);
+player_idel.gravity = g;
+player_idel.friction = f;
+player_idel.maxSpeed = v(3, 7);
+
+platformer.addAction(player_run);
+player_run.gravity = g;
+player_run.friction = f;
+player_run.maxSpeed = v(3, 7);
+
+platformer.addAction(player_turnAround);
+player_turnAround.gravity = g;
+player_turnAround.friction = f;
+player_turnAround.maxSpeed = v(3, 7);
+
+platformer.addAction(player_jump);
+player_jump.gravity = g;
+player_jump.friction = f;
+player_jump.maxSpeed = v(3, 7);
+
+platformer.addAction(player_jump2);
+player_jump2.gravity = g;
+player_jump2.friction = f;
+player_jump2.maxSpeed = v(3, 7);
+
+
+
+
+
+
+
+
+
+
+this.update = function () {
+game.clear();
+
+
+//OOP.drawArr(map1);
+
+
+player_jump2.draw();
+if (c==1) {
+    c=0;
+    flag1 = !flag1; //true
+}
+
+player_idel.move(v(speed*dx, speed*dy))
+player_run.move(v(speed*dx, speed*dy))
+player_turnAround.move(v(speed*dx, speed*dy))
+player_jump.move(v(speed*dx, speed*dy))
+player_jump2.move(v(speed*dx, speed*dy))
+
+
+
+
+
+
+js.brush.drawText({ 
+   text : "Привет!", 
+   x : 20, 
+   y : 20, 
+   color : "black", 
+   size : 30 
+   });
+   js.brush.drawText({ 
+   text : "Нажми кнопку X!", 
+   x : 20, 
+   y : 60, 
+   color : "black", 
+   size : 30 
+   });
+
+
+
+
+
+var j = 10;
+if (key.isPress('W')||key.isPress('UP')&& flag1){
+    k=0;
+    flag1 = !flag1; //false
+    player_jump.jump(j);
+    player_jump2.jump(j);
+    player_idel.jump(j);
+    player_turnAround.jump(j);
+    player_run.jump(j);
+}
+
+
+if (k<28 && !flag1) {
+k++;
+player_jump.setVisible(true);
+player_turnAround.setVisible(false);
+player_idel.setVisible(false);
+player_run.setVisible(false);
+player_jump2.setVisible(false);
+}
+
+
+
+
+
+
+if ((key.isDown('D')||key.isDown('RIGHT')&& b==30 && player_run.speed.y==0)){
+    dx=DX;
+    player_jump.setFlip(0,0);
+player_jump2.setFlip(0,0);
+}
+
+if (key.isDown('A')||key.isDown('LEFT')){
+    dx=-DX;
+    player_jump.setFlip(1,0);
+player_jump2.setFlip(1,0);
+}
+
+
+
+
+
+
+
+
+if (k==28 && !flag1) {
+    player_jump.setVisible(false);
+    flag1 = !flag1;
+}
+
+
+
+
+
+
+
+if (key.isPress('X')) {
+    music1++;
+if (music1 == 1) {
+music.play();
+} 
+else {
+   music.stop();
+} 
+if (music1 == 2) {
+    music2.play();
+} else {
+   music2.stop();
+} 
+if (music1 == 3) {
+    music3.play();
+} else {
+   music3.stop();
+} 
+if (music1 == 4) {
+    music4.play();
+} else {
+   music4.stop();
+} 
+if (music1 > 3) {
+    music1= 0;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(flag1) {
+
+
+if (key.isDown('D')||key.isDown('RIGHT')  && b<30 && player_run.speed.y==0) {
+//player_turnAround.draw();
+player_turnAround.setVisible(true);
+player_idel.setVisible(false);
+player_run.setVisible(false);
+player_jump.setVisible(false);
+player_jump2.setVisible(false);
+dx=DX;
+b++;
+player_run.setFlip(0,0);
+player_idel.setFlip(0,0);
+player_jump.setFlip(0,0);
+player_jump2.setFlip(0,0);
+a=0;
+} else if (key.isDown('D')||key.isDown('RIGHT')&& b==30  && player_run.speed.y==0){
+    dx=DX;
+    dy=0;
+    //player_run.draw();
+    player_turnAround.setFlip(1,0);
+    player_turnAround.setVisible(false);
+player_idel.setVisible(false);
+player_run.setVisible(true);
+player_jump.setVisible(false);
+player_jump2.setVisible(false);
+} else if (key.isDown('A')||key.isDown('LEFT')  && a<30 && player_run.speed.y==0) {
+//player_turnAround.draw();
+player_turnAround.setVisible(true);
+player_idel.setVisible(false);
+player_run.setVisible(false);
+player_jump.setVisible(false);
+player_jump2.setVisible(false);
+dx=-DX;
+a++;
+player_run.setFlip(1,0);
+player_idel.setFlip(1,0);
+player_jump.setFlip(1,0);
+player_jump2.setFlip(1,0);
+
+b=0;
+} else if (key.isDown('A')||key.isDown('LEFT')&& a ==30 && player_run.speed.y==0) {
+    dx=-DX;
+    dy=0;
+    player_run.setFlip(1,0);
+    //player_run.draw();
+    player_turnAround.setVisible(false);
+player_idel.setVisible(false);
+player_run.setVisible(true);
+player_jump.setVisible(false);
+player_jump2.setVisible(false);
+    player_turnAround.setFlip(0,0);
+} else {
+    dx=0;
+    dy=0;
+    //player_idel.draw();
+    player_jump.speed.y>5 ? player_jump2.setVisible(true) : player_jump2.setVisible(false);
+    player_turnAround.setVisible(false);
+    player_jump.speed.y == 0 ? player_idel.setVisible(true) : player_idel.setVisible(false);
+player_run.setVisible(false);
+player_jump.setVisible(false);
+}
+
+
+
+
+
+}//if (flag1)
+platformer.update();
+
+
+
+//player_idel.draw();
+//player_run.draw();
+//player_turnAround.draw();
+//player_jump.draw();
+
+
+
+camera.follow(player_idel);
+
+}
+})
+game.startLoop('my game');
+</script>
+</body>
+</html>
