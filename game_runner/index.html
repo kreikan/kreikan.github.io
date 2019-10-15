@@ -9,9 +9,6 @@
 <script type="text/javascript" src="pointjs.js"></script>
 <script type="text/javascript" src="platformer.js"></script>
 
-
-
-
 <script type="text/javascript">
 
 var js = new PointJS('2d',1000, 550, {background : 'white'});
@@ -31,7 +28,7 @@ var camera = js.camera;
 var OOP =js.OOP;
 var speed = 1;
 dx =0;
-var DX = 4;
+var DX = 5;
 dy=0;
 
 
@@ -66,7 +63,7 @@ level: [
     '',
     '',
     '',
-    '010101010101220101010101122010101010112201010101011220101010101',
+    '01010101010122010101010112201010101011220101010101122010101010101010101010101',
     '',
     '',
     '        01010101',
@@ -141,30 +138,32 @@ var player_jump2 = game.newAnimationObject({ // право
 
 var g = 0.5; //0.6
 var f = 0; //0.1
+var mxsx = 5; //maxSpeed первое число
+var mxs = 12; //maxSpeed второе число
 platformer.addAction(player_idel);
 player_idel.gravity = g;
 player_idel.friction = f;
-player_idel.maxSpeed = v(3, 7);
+player_idel.maxSpeed = v(mxsx, mxs);
 
 platformer.addAction(player_run);
 player_run.gravity = g;
 player_run.friction = f;
-player_run.maxSpeed = v(3, 7);
+player_run.maxSpeed = v(mxsx, mxs);
 
 platformer.addAction(player_turnAround);
 player_turnAround.gravity = g;
 player_turnAround.friction = f;
-player_turnAround.maxSpeed = v(3, 7);
+player_turnAround.maxSpeed = v(mxsx, mxs);
 
 platformer.addAction(player_jump);
 player_jump.gravity = g;
 player_jump.friction = f;
-player_jump.maxSpeed = v(3, 7);
+player_jump.maxSpeed = v(mxsx, mxs);
 
 platformer.addAction(player_jump2);
 player_jump2.gravity = g;
 player_jump2.friction = f;
-player_jump2.maxSpeed = v(3, 7);
+player_jump2.maxSpeed = v(mxsx, mxs);
 
 
 
@@ -218,7 +217,7 @@ js.brush.drawText({
 
 
 
-var j = 10;
+var j = 12;
 if (key.isPress('W')||key.isPress('UP')&& flag1){
     k=0;
     flag1 = !flag1; //false
@@ -247,13 +246,13 @@ player_jump2.setVisible(false);
 if ((key.isDown('D')||key.isDown('RIGHT')&& b==30 && player_run.speed.y==0)){
     dx=DX;
     player_jump.setFlip(0,0);
-player_jump2.setFlip(0,0);
+    player_jump2.setFlip(0,0);
 }
 
 if (key.isDown('A')||key.isDown('LEFT')){
     dx=-DX;
     player_jump.setFlip(1,0);
-player_jump2.setFlip(1,0);
+    player_jump2.setFlip(1,0);
 }
 
 
@@ -374,7 +373,7 @@ player_jump2.setVisible(false);
     dx=0;
     dy=0;
     //player_idel.draw();
-    player_jump.speed.y>5 ? player_jump2.setVisible(true) : player_jump2.setVisible(false);
+    player_jump.speed.y>0 ? player_jump2.setVisible(true) : player_jump2.setVisible(false);
     player_turnAround.setVisible(false);
     player_jump.speed.y == 0 ? player_idel.setVisible(true) : player_idel.setVisible(false);
 player_run.setVisible(false);
