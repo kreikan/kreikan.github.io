@@ -369,13 +369,35 @@ player_run.setVisible(true);
 player_jump.setVisible(false);
 player_jump2.setVisible(false);
     player_turnAround.setFlip(0,0);
-} else {
+} else if (key.isDown('D')||key.isDown('RIGHT')  && player_run.speed.y!=0){
+    dx=DX;
+    dy=0;
+    //player_run.draw();
+    player_turnAround.setFlip(1,0);
+    player_turnAround.setVisible(false);
+player_idel.setVisible(false);
+player_run.setVisible(true);
+player_jump.setVisible(false);
+player_jump2.setVisible(false);
+} else if (key.isDown('A')||key.isDown('LEFT')&& player_run.speed.y!=0) {
+    dx=-DX;
+    dy=0;
+    player_run.setFlip(1,0);
+    //player_run.draw();
+    player_turnAround.setVisible(false);
+player_idel.setVisible(false);
+player_run.setVisible(true);
+player_jump.setVisible(false);
+player_jump2.setVisible(false);
+    player_turnAround.setFlip(0,0);
+}  else {
+  
     dx=0;
     dy=0;
     //player_idel.draw();
-    player_jump.speed.y>0 ? player_jump2.setVisible(true) : player_jump2.setVisible(false);
+    player_jump.speed.y>5 ? player_jump2.setVisible(true) : player_jump2.setVisible(false);
     player_turnAround.setVisible(false);
-    player_jump.speed.y == 0 ? player_idel.setVisible(true) : player_idel.setVisible(false);
+    player_jump.speed.y < 5 ? player_idel.setVisible(true) : player_idel.setVisible(false);
 player_run.setVisible(false);
 player_jump.setVisible(false);
 }
