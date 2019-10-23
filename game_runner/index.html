@@ -6,12 +6,14 @@
  <title></title>
 </head>
 <body>
+    
 <script type="text/javascript" src="pointjs.js"></script>
+
 <script type="text/javascript" src="platformer.js"></script>
 
 <script type="text/javascript">
 
-var js = new PointJS('2d',1000, 550, {background : 'white'});
+var js = new PointJS('2d',1500, 1000, {background : 'white'});
 var platformer = new PlatformerJS(js);
 platformer.optMode = true;
 var game = js.game;
@@ -21,8 +23,8 @@ var point  = js.vector.point;
 var log =js.system.log;
 var key = js.keyControl;
 key.initKeyControl();
-
-
+var ship = new Image();
+ship.src = "image/Row.png";
 var camera = js.camera;
 
 var OOP =js.OOP;
@@ -63,7 +65,16 @@ level: [
     '',
     '',
     '',
-    '01010101010122010101010112201010101011220101010101122010101010101010101010101',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
     '',
     '',
     '        01010101',
@@ -72,13 +83,101 @@ level: [
     '     010101010101122010101010112201010101011220101010101',
     '',
     '',
-    '010101010101220101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
     '',
     '',
     '        01010101',
     '',
     '',
     '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '     010101010101122010101010112201010101011220101010101',
+    '',
+    '',
+    '01010101010122010101010112201010101011220101010101122010101010',
+    '',
+    '',
+    '        01010101',
+    '',
+    '',
+    '1010101010101101010101010110101010101011010101010101101010101',
+    '0101010101011010101010101101010101010110101010101011010101010',
     ]
 }
 var map1 = [];
@@ -104,27 +203,28 @@ h:map.height,
 fillColor: 'red'
 })))
         }
+      
     })
 })
 
 var player_idel = game.newAnimationObject({ // право
- animation : tiles.newImage('player.png').getAnimation(0, 65, 32, 32, 6), x: 30, y:30, w: 32, h : 32, delay :7, visible: true
+ animation : tiles.newImage('player.png').getAnimation(0, 65, 32, 32, 6), x: 430, y:30, w: 32, h : 32, delay :7, visible: true
 });
 
 var player_run = game.newAnimationObject({ // право
- animation : tiles.newImage('player.png').getAnimation(0, 113, 32, 32, 8), x: 30, y:30, w: 32, h : 32, delay :4, visible: false
+ animation : tiles.newImage('player.png').getAnimation(0, 113, 32, 32, 8), x: 430, y:30, w: 32, h : 32, delay :4, visible: false
 });
 
 var player_turnAround = game.newAnimationObject({ // право
- animation : tiles.newImage('player.png').getAnimation(48, 161, 32, 32, 8), x: 30, y:30, w: 32, h : 32, delay :5, visible: false
+ animation : tiles.newImage('player.png').getAnimation(48, 161, 32, 32, 8), x: 430, y:30, w: 32, h : 32, delay :5, visible: false
 });
 
 var player_jump = game.newAnimationObject({ // право
- animation : tiles.newImage('player.png').getAnimation(0, 209, 32, 32, 3), x: 30, y:30, w: 32, h : 32, delay :9, visible:false
+ animation : tiles.newImage('player.png').getAnimation(0, 209, 32, 32, 3), x: 430, y:30, w: 32, h : 32, delay :9, visible:false
 });
 
 var player_jump2 = game.newAnimationObject({ // право
- animation : tiles.newImage('player.png').getAnimation(70, 209, 32, 32, 1), x: 30, y:30, w: 32, h : 32, delay :9, visible:true
+ animation : tiles.newImage('player.png').getAnimation(70, 209, 32, 32, 1), x: 430, y:30, w: 32, h : 32, delay :9, visible:true
 });
 
 //var ground = game.newRectObject ({
@@ -173,10 +273,16 @@ player_jump2.maxSpeed = v(mxsx, mxs);
 
 
 
-
 this.update = function () {
 game.clear();
 
+var obj = game.newImageObject(   { 
+     file : "image/3.jpg", 
+     x : 0, 
+     y : 0,
+     scale : 1, // уменьшить картинку в 2 раза, если не заданы ширина и высота
+   });
+obj.draw();
 
 //OOP.drawArr(map1);
 
@@ -200,16 +306,16 @@ player_jump2.move(v(speed*dx, speed*dy))
 
 js.brush.drawText({ 
    text : "Привет!", 
-   x : 20, 
+   x : 50, 
    y : 20, 
-   color : "black", 
+   color : "white", 
    size : 30 
    });
    js.brush.drawText({ 
    text : "Нажми кнопку X!", 
-   x : 20, 
+   x : 50, 
    y : 60, 
-   color : "black", 
+   color : "white", 
    size : 30 
    });
 
@@ -315,8 +421,10 @@ if (music1 > 3) {
 
 
 
-
 if(flag1) {
+if (key.isDown('R')) {
+    location.reload();
+}
 
 
 if (key.isDown('D')||key.isDown('RIGHT')  && b<30 && player_run.speed.y==0) {
@@ -407,6 +515,7 @@ player_jump.setVisible(false);
 
 
 }//if (flag1)
+
 platformer.update();
 
 
